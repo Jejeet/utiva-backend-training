@@ -1,62 +1,71 @@
 const express = require("express");
-const fs = require("fs");
+
+const foodCropsRoutes = require("./routes/foodCropsRoutes");
 
 const app = express();
 
-const dataSource = fs.readFileSync("./dev-data/data.json", "utf-8");
+app.use(express.json());
 
-app.get("/food-crops", (req, res) => {
-  const allFoodCrops = JSON.parse(dataSource);
-  res.send(allFoodCrops);
-});
+app.use("/", foodCropsRoutes);
 
-app.get("/food-crops/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const allFoodCrops = JSON.parse(dataSource);
+// app.get("/food-crops-from/:country", (req, res) => {
+//   const country = req.params.country;
 
-  // Loop through allFoodCrops [{}, {}, {}]
-  // Find any object with its id property that matches the id from the req.params
-  const foodCropMatched = allFoodCrops.find((foodCrop) => foodCrop.id === id);
+//   const allFoodCrops = JSON.parse(dataSource);
 
-  // return as response the found object
-  res.send(foodCropMatched);
-});
+//   const matchedFoodCrops = [];
 
-app.get("/", (req, res) => {
-  // query
-  // console.log(req.query);
+//   // a list/array of all the food crops that came from the req.params.country
+//   allFoodCrops.forEach((foodCrop) => {
+//     if (foodCrop.from === country) {
+//       matchedFoodCrops.push(foodCrop);
+//     }
+//   });
 
-  const sentence = `Hello ${req.query.name}`;
+//   res.status(200).json({
+//     status: "success",
+//     results: matchedFoodCrops.length,
+//     matchedFoodCrops,
+//   });
+// });
 
-  res.send(sentence);
-});
+// // ASSIGNMENT
+// // Create a GET request endpoint with the following route
+// // /food-crops-from/:country | requirements: req.params.country
+// // Return as the response (res.send) a list/array of all the food crops that came from the req.params.country
 
-app.get("/:name", (req, res) => {
-  // params
-  console.log(req.params);
-  const sentence = `Hello ${req.params.name}`;
+// app.get("/", (req, res) => {
+//   // query
+//   // console.log(req.query);
 
-  res.send(sentence);
-});
+//   const sentence = `Hello ${req.query.name}`;
 
-app.post("/users", (req, res) => {
-  console.log(req.body);
+//   res.send(sentence);
+// });
 
-  res.send("Got a POST request");
-});
+// app.get("/:name", (req, res) => {
+//   // params
+//   console.log(req.params);
+//   const sentence = `Hello ${req.params.name}`;
 
-app.patch("/users", (req, res) => {
-  res.send("Got a PATCH request");
-});
+//   res.send(sentence);
+// });
 
-app.delete("/users", (req, res) => {
-  res.send("Got a DELETE request");
-});
+// app.post("/users", (req, res) => {
+//   console.log(req.body);
 
-// ASSIGNMENT
-// Create a GET request endpoint with the following route/path
-// /food-crops-from/:country | requirements: req.params.country
-// Return as the response (res.send) a list of all the food crops that came from the req.params.country
+//   res.send("Got a POST request");
+// });
+
+// app.patch("/users/:id", (req, res) => {
+//   console.log(req.body);
+
+//   res.send("Got a PATCH request");
+// });
+
+// app.delete("/users/:id", (req, res) => {
+//   res.send("Got a DELETE request");
+// });
 
 const port = 5000;
 
