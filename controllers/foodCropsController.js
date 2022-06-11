@@ -22,3 +22,24 @@ exports.getOneFoodCrop = (req, res) => {
   // return as response the found object
   res.send(foodCropMatched);
 };
+
+exports.getAllFoodCropsfromGivenCountry = (req, res) => {
+  const country = req.params.country;
+
+  const allFoodCrops = JSON.parse(dataSource);
+
+  const matchedFoodCrops = [];
+
+  // a list/array of all the food crops that came from the req.params.country
+  allFoodCrops.forEach((foodCrop) => {
+    if (foodCrop.from === country) {
+      matchedFoodCrops.push(foodCrop);
+    }
+  });
+
+  res.status(200).json({
+    status: "success",
+    results: matchedFoodCrops.length,
+    matchedFoodCrops,
+  });
+};

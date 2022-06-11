@@ -4,7 +4,11 @@ const foodCropController = require("../controllers/foodCropsController");
 
 const router = express.Router();
 
-router.get("/food-crops", foodCropController.getAllFoodCrops);
-router.get("/food-crops/:id", foodCropController.getOneFoodCrop);
+router.get(
+  "/food-crops-from/:country",
+  foodCropController.getAllFoodCropsfromGivenCountry
+);
+router.get("/:id", foodCropController.getOneFoodCrop);
+router.get("/", foodCropController.getAllFoodCrops);
 
 module.exports = router;
