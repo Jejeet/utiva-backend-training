@@ -8,6 +8,13 @@ app.use(express.json());
 
 app.use("/api/v1/food-crops/", foodCropsRoutes);
 
+app.use("*", (req, res) => {
+  res.status(404).json({
+    status: "failed",
+    message: `Cannot find ${req.originalUrl} on this server!`,
+  });
+});
+
 const port = 5000;
 
 app.listen(port, () => {
