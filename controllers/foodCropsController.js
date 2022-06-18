@@ -1,10 +1,23 @@
 const fs = require("fs");
 const path = require("path");
 
+const FoodCrop = require("../models/foodCropModel");
+
 const dataSource = fs.readFileSync(
   path.join(`${__dirname}`, "../dev-data/data.json"),
   "utf-8"
 );
+
+exports.createFoodCrop = async (req, res) => {
+  const createdFoodCrop = await FoodCrop.create(req.body);
+
+  res.status(201).json({
+    status: "success",
+    data: {
+      createdFoodCrop,
+    },
+  });
+};
 
 exports.getAllFoodCrops = (req, res) => {
   const allFoodCrops = JSON.parse(dataSource);

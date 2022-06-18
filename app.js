@@ -1,9 +1,18 @@
 const express = require("express");
+const mongoose = require("mongoose");
 require("dotenv").config();
 
 const foodCropsRoutes = require("./routes/foodCropsRoutes");
 
 const app = express();
+
+// Connect to the database
+mongoose
+  .connect(process.env.DATABASE_URL, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("DB connection is successful! 🥳"))
+  .catch((err) => console.error(err));
 
 app.use(express.json());
 

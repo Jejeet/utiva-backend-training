@@ -11,6 +11,10 @@ router.get(
   foodCropController.getAllFoodCropsfromGivenCountry
 );
 router.get("/:id", foodCropController.getOneFoodCrop);
-router.get("/", foodCropController.getAllFoodCrops);
+
+router
+  .route("/")
+  .get(foodCropController.getAllFoodCrops)
+  .post(foodCropController.createFoodCrop);
 
 module.exports = router;
