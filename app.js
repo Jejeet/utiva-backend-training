@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/", foodCropsRoutes);
+app.use("/food-crops-from/:id", foodCropsRoutes);
 
 // app.get("/food-crops-from/:country", (req, res) => {
 //   const country = req.params.country;
